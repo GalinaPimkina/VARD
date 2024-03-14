@@ -47,7 +47,7 @@ ROOT_URLCONF = "vard.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -100,6 +100,27 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_LOGOUT_ON_GET = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    "github": {
+        "APPS": [
+            {
+                "client_id": os.getenv("client_id_GH"),
+                "secret": os.getenv("secret_GH"),
+                "key": "",
+            },
+        ],
+    },
+    "google": {
+        "APPS": [
+            {
+                "client_id": os.getenv("client_id_GGL"),
+                "secret": os.getenv("secret_GGL"),
+                "key": "",
+            },
+        ],
+    },
+}
 
 LANGUAGE_CODE = "en-us"
 
