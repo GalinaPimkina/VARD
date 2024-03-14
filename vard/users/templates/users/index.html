@@ -2,7 +2,7 @@
 
 {% block body %}
 <nav>
-    {% if user.authenticate %}
+    {% if user.is_authenticated %}
     <p><a href="{% url 'account_logout' %}">Выйти</a></p>
     {% else %}
     <p><a href="{% url 'account_login' %}">Авторизоваться</a> | <a href="{% url 'account_signup' %}">Регистрация</a></p>
