@@ -1,20 +1,32 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>
-      {% block head_title %}
-
-      {% endblock %}
-    </title>
-  </head>
-  <body>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block head_title %}
+            {% endblock head_title %}
+        </title>
+        {% block extra_head %}
+        {% endblock extra_head %}
+    </head>
+<body>
     {% block body %}
-      {% block content %}
+        <div>
+            <nav>
+                {% if user.is_authenticated %}
+                <p><a href="{% url 'account_logout' %}">Log out</a></p>
+                {% else %}
+                <p><a href="{% url 'account_login' %}">Log in</a> | <a href="{% url 'account_signup' %}">Sign up</a></p>
+                {% endif %}
+            </nav>
+        </div>
+        {% block content %}
+        {% endblock content %}
+    {% endblock body %}
 
-      {% endblock %}
-    {% endblock %}
     {% block extra_body %}
-
     {% endblock %}
-  </body>
+</body>
 </html>
