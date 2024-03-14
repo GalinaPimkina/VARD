@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+Log in to Vard
+{% endblock head_title %}
+
+
+{% block content %}
+<div></div>
+<form method="post">
+    <div><p>Log in to Vard</p></div>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Continue</button>
+    <div><p>Don't have an account? <a href="{% url 'account_signup' %}">Sign up</a></p></div>
+</form>
+</div>
+{% endblock content %}
