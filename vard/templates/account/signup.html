@@ -14,5 +14,8 @@ Sign up
     <div><p>I agree with <a href="http://vard.tech/policy">Privacy Policy</a> and <a href="http://vard.tech/service">Terms of Service</a></p></div>
     <div><p>Don't have an account? <a href="{% url 'account_signup' %}">Sign up</a></p></div>
 </form>
-</div>
+</div> 
+   {% if SOCIALACCOUNT_ENABLED %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    {% endif %}
 {% endblock content %}
