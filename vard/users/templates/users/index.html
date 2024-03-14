@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 
-{% block body %}
-<nav>
-    {% if user.is_authenticated %}
-    <p><a href="{% url 'account_logout' %}">Log out</a></p>
-    {% else %}
-    <p><a href="{% url 'account_login' %}">Log in</a> | <a href="{% url 'account_signup' %}">Sign up</a></p>
-    {% endif %}
-</nav>
-{% endblock body %}
+{% block head_title %}
+Главная страница
+{% endblock head_title %}
+
+{% block content %}
+<p>Это главная страница. Тут пока пусто :)</p>
+{% endblock content %}
