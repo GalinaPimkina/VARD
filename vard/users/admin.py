@@ -1,3 +1,8 @@
+from django.contrib import admin
+from .models import User
+
+admin.site.register(User)
+
 # from django.contrib import admin
 # from .models import Access, AccessType, Files, FilesType, Place, Dushboards, Charts, Feedback, Comments, ReadComments
 #
