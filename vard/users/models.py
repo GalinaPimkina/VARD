@@ -6,12 +6,12 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, name, email, password=None, **kwargs):
+    def create_user(self, username, email, password=None, **kwargs):
         if not email:
             raise ValueError("Поле Email не должно быть пустым!")
 
         user = self.model(
-            name=name, email=self.normalize_email(email), password=password, **kwargs
+            username=username, email=self.normalize_email(email), password=password, **kwargs
         )
 
         user.set_password(password)
@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["name"]
+    REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
         return f"{self.email}"
@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Access(models.Model):
     user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='access')
     file_id = models.ForeignKey(to="Files", on_delete=models.CASCADE, related_name='access_file')
-    access_type_id = models.ForeignKey(to="AccessType", on_delete=models.CASCADE, related_name='access_type')
+    access_type_id = models.ForeignKey(to="AccessType", on_delete=models.CASCADE, related_name='type')
     date_access_open = models.DateTimeField(auto_now=True)
     date_access_close = models.DateTimeField(blank=True, null=True)
 
