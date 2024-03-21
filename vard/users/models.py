@@ -49,7 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Access(models.Model):
     user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='access')
-    file_id = models.ForeignKey(to="Files", on_delete=models.CASCADE, related_name='access_file')
+    file_id = models.ForeignKey(to="File", on_delete=models.CASCADE, related_name='access_file')
     date_access_open = models.DateTimeField(auto_now=True)
     date_access_close = models.DateTimeField(blank=True, null=True)
 
@@ -112,8 +112,8 @@ class Feedback(models.Model):
 
 class Comment(models.Model):
     user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='comment')
-    file_id = models.ForeignKey(to="Files", on_delete=models.CASCADE, related_name='comment_file')
-    chart_id = models.ForeignKey(to="Charts", on_delete=models.CASCADE, related_name='comment_chart')
+    file_id = models.ForeignKey(to="File", on_delete=models.CASCADE, related_name='comment_file')
+    chart_id = models.ForeignKey(to="Chart", on_delete=models.CASCADE, related_name='comment_chart')
     dashboard_id = models.ForeignKey(to="Dashboard", on_delete=models.CASCADE, related_name='comment_dashboard')
     date_send = models.DateTimeField(auto_now_add=True)
     date_remove = models.DateTimeField(blank=True, null=True)
@@ -122,7 +122,7 @@ class Comment(models.Model):
 
 class ReadComment(models.Model):
     user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='read')
-    comment_id = models.ForeignKey(to="Comments", on_delete=models.CASCADE, related_name='read_comment')
+    comment_id = models.ForeignKey(to="Comment", on_delete=models.CASCADE, related_name='read_comment')
     date_reading = models.DateTimeField(blank=True, null=True)
 
 
