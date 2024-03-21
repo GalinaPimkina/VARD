@@ -11,7 +11,10 @@ class UserManager(BaseUserManager):
             raise ValueError("Поле Email не должно быть пустым!")
 
         user = self.model(
-            username=username, email=self.normalize_email(email), password=password, **kwargs
+            username=username,
+            email=self.normalize_email(email),
+            password=password,
+            **kwargs,
         )
 
         user.set_password(password)
@@ -48,22 +51,28 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Access(models.Model):
-    user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='access')
-    file_id = models.ForeignKey(to="File", on_delete=models.CASCADE, related_name='access_file')
+    user_id = models.ForeignKey(
+        to="User", on_delete=models.CASCADE, related_name="access"
+    )
+    file_id = models.ForeignKey(
+        to="File", on_delete=models.CASCADE, related_name="access_file"
+    )
     date_access_open = models.DateTimeField(auto_now=True)
     date_access_close = models.DateTimeField(blank=True, null=True)
 
     ACCESS_TYPES = [
-        ('RE', 'READER'),
-        ('OW', 'OWNER'),
-        ('CO', 'COMMENTATOR'),
-        ('ED', 'EDITOR'),
+        ("RE", "READER"),
+        ("OW", "OWNER"),
+        ("CO", "COMMENTATOR"),
+        ("ED", "EDITOR"),
     ]
-    access_type = models.CharField(max_length=2, choices=ACCESS_TYPES, default='RE')
+    access_type = models.CharField(max_length=2, choices=ACCESS_TYPES, default="RE")
 
 
 class File(models.Model):
-    user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='file')
+    user_id = models.ForeignKey(
+        to="User", on_delete=models.CASCADE, related_name="file"
+    )
     date_creation = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
     date_delete = models.DateTimeField(blank=True, null=True)
@@ -71,58 +80,75 @@ class File(models.Model):
     link = models.CharField(max_length=255)
 
     PUBLISH = [
-        (0, 'no'),
-        (1, 'yes'),
+        (0, "no"),
+        (1, "yes"),
     ]
     publish = models.CharField(max_length=1, choices=PUBLISH, default=0)
 
     FILES_TYPES = [
-        ('CSV', 'CSV'),
-        ('JSON', 'JSON'),
-        ('EXCEL', 'EXCEL'),
-        ('PDF', 'PDF'),
+        ("CSV", "CSV"),
+        ("JSON", "JSON"),
+        ("EXCEL", "EXCEL"),
+        ("PDF", "PDF"),
     ]
-    files_type = models.CharField(max_length=10, choices=FILES_TYPES, default='JSON')
+    files_type = models.CharField(max_length=10, choices=FILES_TYPES, default="JSON")
 
     TYPES = [
-        ('CO', 'Community'),
-        ('MY', 'My Files'),
+        ("CO", "Community"),
+        ("MY", "My Files"),
     ]
-    type = models.CharField(max_length=2, choices=TYPES, default='MY')
+    type = models.CharField(max_length=2, choices=TYPES, default="MY")
 
 
 class Dashboard(models.Model):
-    user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='dashboard')
+    user_id = models.ForeignKey(
+        to="User", on_delete=models.CASCADE, related_name="dashboard"
+    )
     date_creation = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
 
 
 class Chart(models.Model):
-    user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='chart')
+    user_id = models.ForeignKey(
+        to="User", on_delete=models.CASCADE, related_name="chart"
+    )
     date_creation = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
 
 
 class Feedback(models.Model):
-    user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='feedback')
+    user_id = models.ForeignKey(
+        to="User", on_delete=models.CASCADE, related_name="feedback"
+    )
     date_creation = models.DateTimeField(auto_now_add=True)
     theme = models.CharField(max_length=255)
     description = models.TextField()
 
 
 class Comment(models.Model):
-    user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='comment')
-    file_id = models.ForeignKey(to="File", on_delete=models.CASCADE, related_name='comment_file')
-    chart_id = models.ForeignKey(to="Chart", on_delete=models.CASCADE, related_name='comment_chart')
-    dashboard_id = models.ForeignKey(to="Dashboard", on_delete=models.CASCADE, related_name='comment_dashboard')
+    user_id = models.ForeignKey(
+        to="User", on_delete=models.CASCADE, related_name="comment"
+    )
+    file_id = models.ForeignKey(
+        to="File", on_delete=models.CASCADE, related_name="comment_file"
+    )
+    chart_id = models.ForeignKey(
+        to="Chart", on_delete=models.CASCADE, related_name="comment_chart"
+    )
+    dashboard_id = models.ForeignKey(
+        to="Dashboard", on_delete=models.CASCADE, related_name="comment_dashboard"
+    )
     date_send = models.DateTimeField(auto_now_add=True)
     date_remove = models.DateTimeField(blank=True, null=True)
     date_delivery = models.DateTimeField(auto_now_add=True)
     comment = models.TextField()
 
+
 class ReadComment(models.Model):
-    user_id = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name='read')
-    comment_id = models.ForeignKey(to="Comment", on_delete=models.CASCADE, related_name='read_comment')
+    user_id = models.ForeignKey(
+        to="User", on_delete=models.CASCADE, related_name="read"
+    )
+    comment_id = models.ForeignKey(
+        to="Comment", on_delete=models.CASCADE, related_name="read_comment"
+    )
     date_reading = models.DateTimeField(blank=True, null=True)
-
-
