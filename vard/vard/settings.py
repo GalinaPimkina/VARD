@@ -28,8 +28,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.github",
-    #rest
-    'rest_framework',
+    # DRF
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -69,8 +69,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "vard_db",
-        "USER": "root",
-        "PASSWORD": "1234",
+        "USER": os.getenv("MSQL_USER"),
+        "PASSWORD": os.getenv("MSQL_PWD"),
         "HOST": "127.0.0.1",
         "PORT": "3306",
     }
@@ -145,7 +145,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ]
 }
