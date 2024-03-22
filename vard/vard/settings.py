@@ -69,8 +69,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "vard_db",
-        "USER": "root",
-        "PASSWORD": "1234",
+        "USER": os.getenv("MSQL_USER"),
+        "PASSWORD": os.getenv("MSQL_PWD"),
         "HOST": "127.0.0.1",
         "PORT": "3306",
     }

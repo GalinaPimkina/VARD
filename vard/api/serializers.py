@@ -27,7 +27,7 @@ class AccessSerializer(serializers.ModelSerializer):
 class FileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = File
-        fields = ["name", "link", "publish", "files_type", "type"]
+        fields = ["user_id", "name", "link", "publish", "files_type", "type"]
 
 
 class DashboardSerializer(serializers.HyperlinkedModelSerializer):
