@@ -68,6 +68,9 @@ class Access(models.Model):
     ]
     access_type = models.CharField(max_length=2, choices=ACCESS_TYPES, default="RE")
 
+    def __str__(self):
+        return self.access_type
+
 
 class File(models.Model):
     user_id = models.ForeignKey(
@@ -99,6 +102,9 @@ class File(models.Model):
     ]
     type = models.CharField(max_length=2, choices=TYPES, default="MY")
 
+    def __str__(self):
+        return self.name
+
 
 class Dashboard(models.Model):
     user_id = models.ForeignKey(
@@ -106,6 +112,10 @@ class Dashboard(models.Model):
     )
     date_creation = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class Chart(models.Model):
@@ -114,6 +124,10 @@ class Chart(models.Model):
     )
     date_creation = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class Feedback(models.Model):
@@ -123,6 +137,9 @@ class Feedback(models.Model):
     date_creation = models.DateTimeField(auto_now_add=True)
     theme = models.CharField(max_length=255)
     description = models.TextField()
+
+    def __str__(self):
+        return self.theme
 
 
 class Comment(models.Model):
