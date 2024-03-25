@@ -24,9 +24,12 @@ from users.models import (
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by("-date_creation")
+    # queryset = User.objects.all().order_by("-date_creation")
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return User.objects.all()
 
 
 class AccessViewSet(viewsets.ModelViewSet):
