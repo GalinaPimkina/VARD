@@ -16,7 +16,7 @@ class ConnectionAPI(APIView):
             data_base = request.data['data_base']
             description = request.data['description']
         except:
-            return Response("Не заполнены необходимые поля для подключения")
+            return Response("All fields are required")
 
         try:
             MySQLdb.connect(user=user, password=password, host=host, port=port, database=data_base)
