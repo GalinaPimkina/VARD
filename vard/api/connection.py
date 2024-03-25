@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from sqlalchemy import create_engine
+import MySQLdb
 
 
 class ConnectionAPI(APIView):
@@ -18,10 +18,14 @@ class ConnectionAPI(APIView):
         except:
             return Response("Не заполнены необходимые поля для подключения")
 
-        engine = create_engine(f"{data_base_type}+{driver}://{user}:{password}@{host}:{port}/{data_base}", echo=True)
         try:
-            engine.connect()
+            MySQLdb.connect(user=user, password=password, host=host, port=port, database=data_base)
+            # db.cursor().execute("""CREATE TABLE user2 (
+            #                     id INT auto_increment PRIMARY KEY ,
+            #                     name CHAR(10) NOT NULL UNIQUE,
+            #                     age TINYINT NOT NULL
+            #                     );""")
+            # db.close()
         except:
-            return Response("Invalid data")
-        return Response("Connection complete")
-
+            return Response("Required fields: driver, user, password, host, port, data_base. Please, check the field's data is correct.")
+        return Response(f"Connection complete")
