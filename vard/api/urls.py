@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from . import views
-
+from .connection import ConnectionAPI
 
 router = routers.DefaultRouter()
 router.register(r"users", views.UserViewSet)
@@ -17,4 +17,5 @@ router.register(r"read_comment", views.ReadCommentViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
+    path("api/connect/", ConnectionAPI.as_view())
 ]

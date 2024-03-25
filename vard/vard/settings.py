@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
+from rest_framework import permissions
 
 load_dotenv(find_dotenv())
 
@@ -146,6 +147,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+        "rest_framework.permissions.IsAuthenticated"
     ]
 }
