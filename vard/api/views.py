@@ -69,7 +69,7 @@ class ReadCommentViewSet(viewsets.ModelViewSet):
 class ConnectAPI(APIView):
     def post(self, request):
         serializer = ConnectSerializer(data=request.data)
-        serializer.is_valid(raise_exception=False)
+        serializer.is_valid(raise_exception=True)
         serializer.save()
 
         try:
@@ -88,5 +88,5 @@ class ConnectAPI(APIView):
             #                     );""")
             # db.close()
         except:
-            return Response("Required fields: user, password, host, port, data_base, description. Please, check the field's data is correct.")
+            return Response("Please, check the fields data is correct.")
         return Response(f"Connection complete")
