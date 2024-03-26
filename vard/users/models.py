@@ -169,3 +169,15 @@ class ReadComment(models.Model):
         to="Comment", on_delete=models.CASCADE, related_name="read_comment"
     )
     date_reading = models.DateTimeField(blank=True, null=True)
+
+
+class Connect(models.Model):
+    user = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    driver = models.CharField(max_length=255, blank=True, null=True)
+    url = models.CharField(max_length=255, blank=True, null=True)
+    host = models.CharField(max_length=255)
+    port = models.IntegerField()
+    data_base_type = models.CharField(max_length=255, blank=True, null=True)
+    data_base = models.CharField(max_length=255)
+    description = models.TextField()
