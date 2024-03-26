@@ -8,7 +8,7 @@ from users.models import (
     Chart,
     Feedback,
     Comment,
-    ReadComment,
+    ReadComment, Connect,
 )
 
 
@@ -58,3 +58,9 @@ class ReadCommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ReadComment
         fields = ["user_id", "comment_id"]
+
+
+class ConnectSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Connect
+        fields = "__all__"
