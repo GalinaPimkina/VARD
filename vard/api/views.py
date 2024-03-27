@@ -1,6 +1,5 @@
 import MySQLdb
 from rest_framework import viewsets
-from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,7 +11,8 @@ from api.serializers import (
     ChartSerializer,
     FeedbackSerializer,
     CommentSerializer,
-    ReadCommentSerializer, ConnectSerializer,
+    ReadCommentSerializer,
+    ConnectSerializer,
 )
 from users.models import (
     User,
@@ -22,7 +22,8 @@ from users.models import (
     Chart,
     Feedback,
     Comment,
-    ReadComment, Connect,
+    ReadComment,
+    Connect,
 )
 
 
@@ -70,15 +71,15 @@ class ConnectAPI(APIView):
     def post(self, request):
         serializer = ConnectSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        # serializer.save()
 
         try:
             MySQLdb.connect(
-                user=request.data['user'],
-                password=request.data['password'],
-                host=request.data['host'],
-                port=request.data['port'],
-                database=request.data['data_base']
+                user=request.data["user"],
+                password=request.data["password"],
+                host=request.data["host"],
+                port=request.data["port"],
+                database=request.data["data_base"],
             )
 
             # db.cursor().execute("""CREATE TABLE user2 (

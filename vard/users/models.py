@@ -69,7 +69,7 @@ class Access(models.Model):
     access_type = models.CharField(max_length=2, choices=ACCESS_TYPES, default="RE")
 
     def __str__(self):
-        return self.access_type
+        return f"{self.access_type}"
 
 
 class File(models.Model):
@@ -103,7 +103,7 @@ class File(models.Model):
     type = models.CharField(max_length=2, choices=TYPES, default="MY")
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
 class Dashboard(models.Model):
@@ -115,7 +115,7 @@ class Dashboard(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
 class Chart(models.Model):
@@ -127,7 +127,7 @@ class Chart(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
 class Feedback(models.Model):
@@ -139,7 +139,7 @@ class Feedback(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.theme
+        return f"{self.theme}"
 
 
 class Comment(models.Model):
@@ -172,12 +172,16 @@ class ReadComment(models.Model):
 
 
 class Connect(models.Model):
+    # user_id = models.ForeignKey(to="User", on_delete=models.CASCADE)
     user = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
-    driver = models.CharField(max_length=255, blank=True, null=True)
-    url = models.CharField(max_length=255, blank=True, null=True)
+    password = models.CharField(max_length=65)
+    driver = models.CharField(max_length=35, blank=True, null=True)
+    url = models.URLField(blank=True, null=True)
     host = models.CharField(max_length=255)
     port = models.IntegerField()
-    data_base_type = models.CharField(max_length=255, blank=True, null=True)
-    data_base = models.CharField(max_length=255)
-    description = models.TextField()
+    data_base_type = models.CharField(max_length=35, blank=True, null=True)
+    data_base = models.CharField(max_length=65)
+    description = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.data_base}: {self.description}"

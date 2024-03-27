@@ -8,7 +8,8 @@ from users.models import (
     Chart,
     Feedback,
     Comment,
-    ReadComment, Connect,
+    ReadComment,
+    Connect,
 )
 
 
@@ -63,4 +64,14 @@ class ReadCommentSerializer(serializers.HyperlinkedModelSerializer):
 class ConnectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Connect
-        fields = "__all__"
+        fields = [
+            "user",
+            "password",
+            "driver",
+            "url",
+            "host",
+            "port",
+            "data_base_type",
+            "data_base",
+            "description",
+        ]
