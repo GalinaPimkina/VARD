@@ -67,6 +67,11 @@ class ReadCommentViewSet(viewsets.ModelViewSet):
     serializer_class = ReadCommentSerializer
 
 
+class ConnectViewSet(viewsets.ModelViewSet):
+    queryset = Connect.objects.all()
+    serializer_class = ConnectSerializer
+
+
 class ConnectAPI(APIView):
     def post(self, request):
         serializer = ConnectSerializer(data=request.data)

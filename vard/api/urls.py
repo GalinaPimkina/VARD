@@ -13,6 +13,7 @@ router.register(r"chart", views.ChartViewSet)
 router.register(r"feedback", views.FeedbackViewSet)
 router.register(r"comment", views.CommentViewSet)
 router.register(r"read_comment", views.ReadCommentViewSet)
+router.register(r"add_connect", views.ConnectViewSet)
 
 
 urlpatterns = [
