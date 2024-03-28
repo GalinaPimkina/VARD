@@ -2,6 +2,7 @@ import MySQLdb
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.parsers import FormParser, MultiPartParser
 
 from api.serializers import (
     UserSerializer,
@@ -37,17 +38,10 @@ class AccessViewSet(viewsets.ModelViewSet):
     serializer_class = AccessSerializer
 
 
-class FileAPI(APIView):
-    # TO DO
-    def post(self, request):
-        serializer = FileSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        # serializer.save()
-
-    def get(self, request, *args, **kwargs):
-        files = File.objects.all()
-        serializer = FileSerializer(files, context={"request": request}, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+class FileViewSet(viewsets.ModelViewSet):
+    queryset = File.objects.all()
+    serializer_class = FileSerializer
+    parser_classes = (MultiPartParser, FormParser)
 
 
 class DashboardViewSet(viewsets.ModelViewSet):
