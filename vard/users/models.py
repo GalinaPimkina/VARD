@@ -80,13 +80,13 @@ class File(models.Model):
     date_change = models.DateTimeField(auto_now=True)
     date_delete = models.DateTimeField(blank=True, null=True)
     name = models.CharField(max_length=255)
-    link = models.CharField(max_length=255)
+    link = models.FileField(upload_to="files/")
 
     PUBLISH = [
-        (0, "no"),
-        (1, "yes"),
+        ("0", "no"),
+        ("1", "yes"),
     ]
-    publish = models.CharField(max_length=1, choices=PUBLISH, default=0)
+    publish = models.CharField(max_length=1, choices=PUBLISH, default="0")
 
     FILES_TYPES = [
         ("CSV", "CSV"),

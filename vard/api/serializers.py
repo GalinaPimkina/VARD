@@ -30,6 +30,11 @@ class FileSerializer(serializers.HyperlinkedModelSerializer):
         model = File
         fields = ["user_id", "name", "link", "publish", "files_type", "type"]
 
+        def get_file_url(self, obj):
+            request = self.contex.get("request")
+            file_url = obj.fingerprint.url
+            return request.build_absolute_url(file_url)
+
 
 class DashboardSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
