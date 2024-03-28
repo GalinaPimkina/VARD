@@ -1,6 +1,5 @@
 import MySQLdb
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,7 +11,8 @@ from api.serializers import (
     ChartSerializer,
     FeedbackSerializer,
     CommentSerializer,
-    ReadCommentSerializer, ConnectSerializer,
+    ReadCommentSerializer,
+    ConnectSerializer,
 )
 from users.models import (
     User,
@@ -22,7 +22,8 @@ from users.models import (
     Chart,
     Feedback,
     Comment,
-    ReadComment, Connect,
+    ReadComment,
+    Connect,
 )
 
 
@@ -36,9 +37,17 @@ class AccessViewSet(viewsets.ModelViewSet):
     serializer_class = AccessSerializer
 
 
-class FileViewSet(viewsets.ModelViewSet):
-    queryset = File.objects.all()
-    serializer_class = FileSerializer
+class FileAPI(APIView):
+    # TO DO
+    def post(self, request):
+        serializer = FileSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        # serializer.save()
+
+    def get(self, request, *args, **kwargs):
+        files = File.objects.all()
+        serializer = FileSerializer(files, context={"request": request}, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class DashboardViewSet(viewsets.ModelViewSet):
@@ -66,19 +75,24 @@ class ReadCommentViewSet(viewsets.ModelViewSet):
     serializer_class = ReadCommentSerializer
 
 
+class ConnectViewSet(viewsets.ModelViewSet):
+    queryset = Connect.objects.all()
+    serializer_class = ConnectSerializer
+
+
 class ConnectAPI(APIView):
     def post(self, request):
         serializer = ConnectSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        # serializer.save()
 
         try:
             MySQLdb.connect(
-                user=request.data['user'],
-                password=request.data['password'],
-                host=request.data['host'],
-                port=request.data['port'],
-                database=request.data['data_base']
+                user=request.data["user"],
+                password=request.data["password"],
+                host=request.data["host"],
+                port=request.data["port"],
+                database=request.data["data_base"],
             )
 
             # db.cursor().execute("""CREATE TABLE user2 (

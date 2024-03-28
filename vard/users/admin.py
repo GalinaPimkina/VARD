@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import User
+from .models import User, File
 
 admin.site.register(User)
+admin.site.register(File)
 
 # from django.contrib import admin
 # from .models import Access, AccessType, Files, FilesType, Place, Dushboards, Charts, Feedback, Comments, ReadComments

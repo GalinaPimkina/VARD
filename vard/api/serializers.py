@@ -8,7 +8,8 @@ from users.models import (
     Chart,
     Feedback,
     Comment,
-    ReadComment, Connect,
+    ReadComment,
+    Connect,
 )
 
 
@@ -28,6 +29,11 @@ class FileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = File
         fields = ["user_id", "name", "link", "publish", "files_type", "type"]
+
+        def get_file_url(self, obj):
+            request = self.contex.get("request")
+            file_url = obj.fingerprint.url
+            return request.build_absolute_url(file_url)
 
 
 class DashboardSerializer(serializers.HyperlinkedModelSerializer):
@@ -63,4 +69,14 @@ class ReadCommentSerializer(serializers.HyperlinkedModelSerializer):
 class ConnectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Connect
-        fields = "__all__"
+        fields = [
+            "user",
+            "password",
+            "driver",
+            "url",
+            "host",
+            "port",
+            "data_base_type",
+            "data_base",
+            "description",
+        ]
